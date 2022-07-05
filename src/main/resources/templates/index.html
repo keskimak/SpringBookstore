@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booklist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>My Books</h1>
+
+
+<ul th:each="book : ${bookList}">
+
+<li th:text="${book.title}">Name of book ...</li>
+</ul>
+
+
+
+</body>
+</html>
