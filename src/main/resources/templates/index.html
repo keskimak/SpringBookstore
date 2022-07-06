@@ -1,19 +1,43 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Booklist</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Bookstore</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-<h1>My Books</h1>
 
 
-<ul th:each="book : ${bookList}">
+<div class=container> 
+<br>
+	<h1>My Books</h1>
 
-<li th:text="${book.title}">Name of book ...</li>
-</ul>
+	<table class="table table-striped">
 
+		<tr>
+			<th>Id</th>
+			<th>Title</th>
+			<th>Author</th>
+    <th>ISBN</th>
+    <th>Price</th>
+    <th> </th>
+     <th> </th>
+		</tr>
+		<tr th:each="book : ${bookList}">
+				
+			<td th:text="${book.id}">Text ...</td>
+			<td th:text="${book.title}">Text ...</td>
+			<td th:text="${book.author}">Text ...</td>
+			<td th:text="${book.isbn}">Text ...</td>
+			<td th:text="${book.price}+' e'">Text ...</td>
+			<td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
+			<td><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-success">Edit</a></td>
+			
+		</tr>
 
+	</table>
+	<a href="/addbook"  class="btn btn-success">Add Book</a>
 
+</div>
 </body>
 </html>

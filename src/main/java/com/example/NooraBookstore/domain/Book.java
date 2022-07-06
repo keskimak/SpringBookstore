@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.text.DecimalFormat;
 
 @Entity
 public class Book {
@@ -24,8 +25,8 @@ public class Book {
 
 	}
 
-	public Book(String name, String author, String isbn, int pubYear, double price) {
-		this.title = name;
+	public Book(String title, String author, String isbn, int pubYear, double price) {
+		this.title = title;
 		this.author=author;
 		this.isbn = isbn;
 		this.pubYear = pubYear;
@@ -52,6 +53,13 @@ public class Book {
 	public String getIsbn() {
 		return isbn;
 	}
+	public Long getId() {
+		return id;
+	}
+	
+	public Long setId(Long id) {
+		return this.id=id;
+	}
 
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
@@ -66,6 +74,7 @@ public class Book {
 	}
 
 	public double getPrice() {
+	
 		return price;
 	}
 
@@ -73,6 +82,13 @@ public class Book {
 		this.price = price;
 	}
 
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn + ", pubYear=" + pubYear
+				+ ", price=" + price + "]";
+	}
+
+	
 
 
 

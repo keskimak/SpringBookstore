@@ -19,8 +19,10 @@ public class NooraBookstoreApplication {
 	public CommandLineRunner bookDemo(BookRepository repository)
 	{return (args) -> {
 		 System.out.println("Saving books to the database");
-		 Book b1 = new Book("Lord of the Rings", "J.R.R Tolkien", "4545-5", 1954, 16.20);
+		 Book b1 = new Book("Lord of the Rings", "J.R.R. Tolkien", "4545-5", 1954, 16.20);
+		 Book b2 = new Book("Harry Potter and the philosopher's stone", "J.K. Rowling", "434344545-5", 1996, 19.95);
 		 repository.save(b1);	 
+		 repository.save(b2);	
 		 
 		};
 		}
