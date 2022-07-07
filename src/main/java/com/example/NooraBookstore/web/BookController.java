@@ -15,13 +15,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.NooraBookstore.domain.Book;
 import com.example.NooraBookstore.domain.BookRepository;
+import com.example.NooraBookstore.domain.Category;
+import com.example.NooraBookstore.domain.CategoryRespitory;
 
 @Controller
 public class BookController {
 	List<Book> bookList = new ArrayList<Book>();
 	@Autowired
 	private BookRepository repository;
+	@Autowired
+	private CategoryRespitory catRespitory;
 
+	//Lists books in the index page. Maybe change the name of the page? 
 	@RequestMapping("/index")
 	public String listBooks(@ModelAttribute Book book, Model model) {
 
@@ -30,9 +35,11 @@ public class BookController {
 
 	}
 
+	//Add new book to the database
 	@RequestMapping("/addbook")
 	public String addBook(Model model) {
 		model.addAttribute("book", new Book());
+		model.addAttribute("categories", catRespitory.findAll());
 		return "addbook";
 	}
 
