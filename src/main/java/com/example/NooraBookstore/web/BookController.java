@@ -2,6 +2,7 @@ package com.example.NooraBookstore.web;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.NooraBookstore.domain.Book;
 import com.example.NooraBookstore.domain.BookRepository;
@@ -26,14 +28,27 @@ public class BookController {
 	@Autowired
 	private CategoryRespitory catRespitory;
 
-	//Lists books in the index page. Maybe change the name of the page? 
-	@RequestMapping("/index")
+	//Lists books in the index page "booklist". 
+	@RequestMapping("/booklist")
 	public String listBooks(@ModelAttribute Book book, Model model) {
 
 		model.addAttribute("bookList", repository.findAll());
-		return "index";
+		return "booklist";
 
 	}
+	
+	//Return books in JSON
+	@RequestMapping(value="/books", method = RequestMethod.GET)
+	public @ResponseBody List<Book> bookListRest(){
+		return(List<Book>) repository.findAll();
+	}
+	
+	//Return book by id in JSON
+	@RequestMapping(value="/book/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id")Long id) { 
+		return repository.findById(id);
+	}
+
 
 	//Add new book to the database
 	@RequestMapping("/addbook")
@@ -48,14 +63,14 @@ public class BookController {
 
 		repository.save(book);
 
-		return "redirect:index";
+		return "redirect:booklist";
 
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") Long id, Model model) {
 		repository.deleteById(id);
-		return "redirect:../index";
+		return "redirect:../booklist";
 	}
 
 	@RequestMapping(value = "/edit/{id}")
