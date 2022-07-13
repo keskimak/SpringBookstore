@@ -19,64 +19,40 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-
-
-
 @Configuration
 @EnableWebSecurity
- 
-public class WebSecurityConfig {
-	
-
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+	http
+		.authorizeRequests()
+		.antMatchers("/", "/home","/css/**").permitAll()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+			.loginPage("/login")
+			.defaultSuccessUrl("/booklist", true)
+			.permitAll()
+			.and()
+					.logout()
+					.permitAll();
+ }
 
 	@Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-        .authorizeRequests().antMatchers("/css/**", "/").permitAll()
-        
-        .antMatchers("/booklist").hasAnyRole("USER", "ADMIN")
-        
-        .antMatchers("/delete/**").hasRole("ADMIN")
-        
-        .anyRequest().authenticated()
-        .and()
-      .formLogin()
-          .defaultSuccessUrl("/booklist", true)
-          .permitAll()
-          .and()
-      .logout()
-          .permitAll();
-        
-        return http.build();
-    }
+	public UserDetailsService userDetailsService() {
+		List<UserDetails> users = new ArrayList();
 
+		PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
-    
-    @Bean
-    public UserDetailsService userDetailsService() {
-        List<UserDetails> users = new ArrayList();
+		UserDetails user = User.withUsername("user").password(passwordEncoder.encode("user")).roles("USER").build();
 
-        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		users.add(user);
 
-        UserDetails user = User
-        		.withUsername("user")
-        		.password(passwordEncoder.encode("user"))
-        		.roles("USER")
-        		.build();
+		user = User.withUsername("admin").password(passwordEncoder.encode("admin")).roles("USER", "ADMIN").build();
 
-        users.add(user);
+		users.add(user);
 
-        user = User
-        		.withUsername("admin")
-        		.password(passwordEncoder.encode("admin"))
-        		.roles("USER", "ADMIN")
-        		.build();
-
-    	users.add(user);
-
-        return new InMemoryUserDetailsManager(users);
-    }
+		return new InMemoryUserDetailsManager(users);
+	}
 
 }
-
-

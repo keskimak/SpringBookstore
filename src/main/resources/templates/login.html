@@ -6,10 +6,15 @@
 <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
+
+<table class="table table-striped">
+<tr> 
+<td> 
 <div th:if="${param.error}">
- Invalid username and password.
-</div>
+ Invalid username and password. </div> </td>
+</tr> 
+<tr> <td> 
 <form th:action="@{/login}" method="post">
- <div><label> User Name : <input type="text" name="username"/> </label></div> <div><label> Password: <input type="password" name="password"/></label></div> <div><input type="submit" value="Sign In"/></div>
-</form>
+ <div><label> User Name : <input type="text" name="username"/> </label></div> </td> </tr> <tr><td>  <div><label> Password: <input type="password" name="password"/></label></div> <div><input type="submit" value="Kirjaudu sisään"/></div>
+</form> </td> </tr></table></div>
 </html>
