@@ -1,20 +1,43 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <title>Bookstore</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-
-<table class="table table-striped">
-<tr> 
-<td> 
-<div th:if="${param.error}">
- Invalid username and password. </div> </td>
-</tr> 
-<tr> <td> 
-<form th:action="@{/login}" method="post">
- <div><label> User Name : <input type="text" name="username"/> </label></div> </td> </tr> <tr><td>  <div><label> Password: <input type="password" name="password"/></label></div> <div><input type="submit" value="Kirjaudu sisään"/></div>
-</form> </td> </tr></table></div>
+	<div class="container"> <br>
+		<h1>Noora's Bookstore</h1> <br>
+		<table class="table table-striped" style="width:50%" >
+			<div th:if="${param.error}">
+			<tr>
+				<td>Invalid username and password.
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<form th:action="@{/login}" method="post">
+						<div>
+							<label> Username : </td> <td> <input type="text" name="username" />
+							</label>
+						</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div>
+						<label> Password:  </td> <td> <input type="password" name="password" /></label>
+					</div>
+					<div>
+					<tr><td></td><td>	<input type="submit" value="Log in" class="btn btn-info" /> </td></tr>
+					</div>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+	</div>
 </html>
