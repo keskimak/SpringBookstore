@@ -24,7 +24,7 @@
 				</div>
 			</div>
 
-			<table class="table table-striped">
+			<table class="table table-striped" >
 				<tr>
 					<th>Id</th>
 					<th>Title</th>
@@ -52,7 +52,7 @@
 						class="btn btn-success">Edit</a></td>
 
 
-					<td sec:authorize="hasRole('ADMIN')"><a
+					<td sec:authorize="hasAuthority('ADMIN')"><a
 						th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
 
 

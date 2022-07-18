@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,14 +22,19 @@ import com.example.NooraBookstore.domain.Book;
 import com.example.NooraBookstore.domain.BookRepository;
 import com.example.NooraBookstore.domain.Category;
 import com.example.NooraBookstore.domain.CategoryRespitory;
+import com.example.NooraBookstore.domain.UserRepository;
 
 @Controller
 public class BookController {
+	
+
 	List<Book> bookList = new ArrayList<Book>();
 	@Autowired
 	private BookRepository repository;
 	@Autowired
-	private CategoryRespitory catRespitory;
+	private CategoryRespitory catRepository;
+	@Autowired
+	private UserRepository userRepository;
 
 	// Lists books in the index page "booklist".
 	@RequestMapping("/booklist")
@@ -53,7 +61,7 @@ public class BookController {
 	@RequestMapping("/addbook")
 	public String addBook(Model model) {
 		model.addAttribute("book", new Book());
-		model.addAttribute("categories", catRespitory.findAll());
+		model.addAttribute("categories", catRepository.findAll());
 		return "addbook";
 	}
 
@@ -66,7 +74,9 @@ public class BookController {
 
 	}
 
+	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteBook(@PathVariable("id") Long id, Model model) {
 		repository.deleteById(id);
 		return "redirect:../booklist";
@@ -75,7 +85,7 @@ public class BookController {
 	@RequestMapping(value = "/edit/{id}")
 	public String addBook(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("book", repository.findById(id));
-		model.addAttribute("categories", catRespitory.findAll());
+		model.addAttribute("categories", catRepository.findAll());
 
 		return "edit";
 	}

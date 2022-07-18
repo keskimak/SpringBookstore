@@ -10,42 +10,53 @@
 <body>
 
 
-<div class=container> 
-	<br>
-	<h1>Add new book</h1>
+	<div class=container>
+		<br>
+		<h1>Add new book</h1>
 
-	
-<table class="table table-striped" width=50%>
 
-		<form th:object="${book}" th:action="@{save}" action="#" method="post">
-	
-			<tr> <td> <label for="title">Title</label> </td> <td><input type="text" id="title"
-				th:field="*{title}" /> </td> </tr>
-				
-				<tr> <td> 
-				 <label for="author">Author</label> </td> <td> <input
-				type="text" id="author" th:field="*{author}" /> </td> </tr>
-				
-				<tr> <td> <label for="isbn">ISBN</label>  </td> <td><input
-				type="text" th:field="*{isbn}" /> </td> </tr>
-				
-				<tr> <td>  <label for="pubYear">Year</label>  </td> <td><input
-				type="text" th:field="*{pubYear}" /> </td> </tr>
-				
-				<tr> <td>  <label for="price">Price</label>  </td> <td>
-			<input type="text" th:field="*{price}" />  </td> </tr>
-			
-			<tr> <td> 
-			<label for="categories">Category</label>  </td> <td>
-<select id="categories" th:field="*{category}" class="form-control">
-				<option th:each="category: ${categories}"
-					th:value="${category.categoryId}" th:text="${category.name}"></option>	</select>	
-<tr> <td>
-			
-		 <input type="submit" value="Save" class="btn btn-success"></input> 	<a href="/booklist"  class="btn btn-danger">Cancel</a> </td> </tr>
-		</form>
+		<table class="table table-striped" style="width: 50%">
 
-</table>
+			<form th:object="${book}" th:action="@{save}" action="#"
+				method="post">
+			<tr>
+				<td><label for="title">Title</label></td>
+				<td><input type="text" id="title" th:field="*{title}" /></td>
+			</tr>
+
+			<tr>
+				<td><label for="author">Author</label></td>
+				<td><input type="text" id="author" th:field="*{author}" /></td>
+			</tr>
+
+			<tr>
+				<td><label for="isbn">ISBN</label></td>
+				<td><input type="text" th:field="*{isbn}" /></td>
+			</tr>
+
+			<tr>
+				<td><label for="pubYear">Year</label></td>
+				<td><input type="text" th:field="*{pubYear}" /></td>
+			</tr>
+
+			<tr>
+				<td><label for="price">Price</label></td>
+				<td><input type="text" th:field="*{price}" /></td>
+			</tr>
+
+			<tr>
+				<td><label for="categories">Category</label></td>
+				<td><select id="categories" th:field="*{category}"
+					class="form-control">
+						<option th:each="category: ${categories}"
+							th:value="${category.categoryId}" th:text="${category.name}"></option>
+				</select>
+				<tr> <td>  </td> <td><input type="submit" value="Save" class="btn btn-success"></input>
+					<a href="/booklist" class="btn btn-danger">Cancel</a></td>
+			</tr>
+			</form>
+
+		</table>
 	</div>
 
 </body>
