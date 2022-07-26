@@ -35,6 +35,10 @@ public class BookController {
 	private CategoryRespitory catRepository;
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private HttpSession session;
+	
 
 	// Lists books in the index page "booklist".
 	@RequestMapping("/booklist")
@@ -94,5 +98,6 @@ public class BookController {
 	public String loginPage() {
 		return "login";
 	}
+
 
 }

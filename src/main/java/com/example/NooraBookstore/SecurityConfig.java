@@ -3,6 +3,8 @@ package com.example.NooraBookstore;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,19 +22,35 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import com.example.NooraBookstore.services.UserDetailServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/home", "/css/**").permitAll().anyRequest().authenticated().and()
-				.formLogin().loginPage("/login").defaultSuccessUrl("/booklist", true).permitAll().and().logout()
-				.permitAll();
+
+public class SecurityConfig{
+	
+		
+	@Bean
+	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http
+		.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+		.and()
+		.authorizeRequests()
+		.antMatchers("/", "/home", "/css/**").permitAll()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin().loginPage("/login").defaultSuccessUrl("/booklist", true)
+				.permitAll().and()
+				.logout()
+				.permitAll()
+				.invalidateHttpSession(true);
+		return http.build();
 	}
+	
+
 
 	//This was for hardcoding users to the database
 /*	@Bean
@@ -60,5 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 	}
+
+	
 
 }

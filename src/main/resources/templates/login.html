@@ -11,14 +11,12 @@
 	<div class="container"> <br>
 		<h1>Noora's Bookstore</h1> <br>
 		<table class="table table-striped" style="width:50%" >
-			<div th:if="${param.error}">
-			<tr>
-				<td>Invalid username and password.
-					</div>
+			<tr> <div th:if="${param.error}" class="alert alert-secondary" role="alert" style="width:50%;background-color:#f8efc0">
+		
+				Invalid username and password.
+				</div>	 </tr>
 					
-							
-				</td>
-			</tr>
+		
 			<tr>
 				<td>
 					<form th:action="@{/login}" method="post">
