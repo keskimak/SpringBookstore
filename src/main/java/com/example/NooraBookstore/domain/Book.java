@@ -1,6 +1,9 @@
 package com.example.NooraBookstore.domain;
 
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +24,7 @@ public class Book {
 	private String isbn;
 	private int pubYear;
 	private double price;
+
 	@ManyToOne
 	@JoinColumn(name="categoryId")
 	private Category category;
@@ -102,6 +106,11 @@ public class Book {
 		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn + ", pubYear=" + pubYear
 				+ ", price=" + price + "]";
 	}
+
+
+
+
+
 
 	
 
